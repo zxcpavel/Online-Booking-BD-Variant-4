@@ -1,0 +1,22 @@
+<?php /** @var array $appointment */ 
+// В минимальной версии мы передаем массив appointments, но для view нужен один элемент. 
+// Если контроллер передает массив, берем первый элемент или адаптируем view. 
+// Для простоты предположим, что контроллер передает одну запись в переменной $appointment.
+// Если там массив, изменим код ниже на $appointment[0] или поправим контроллер.
+// Сейчас сделаем универсально:
+$lesson = is_array($appointment) && isset($appointment[0]) ? $appointment[0] : $appointment;
+?>
+
+<h2>📄 Детали записи #<?= htmlspecialchars($lesson['lesson_id'] ?? '') ?></h2>
+
+<table style="max-width: 600px;">
+    <tr><th>Дата и время</th><td><?= htmlspecialchars($lesson['lesson_datetime']) ?></td></tr>
+    <tr><th>Ученик</th><td><?= htmlspecialchars($lesson['student_name']) ?></td></tr>
+    <tr><th>Преподаватель</th><td><?= htmlspecialchars($lesson['teacher_name']) ?></td></tr>
+    <tr><th>Инструмент</th><td><?= htmlspecialchars($lesson['instrument_name']) ?></td></tr>
+    <tr><th>Длительность</th><td><?= htmlspecialchars($lesson['duration_minutes']) ?> мин</td></tr>
+    <tr><th>Статус</th><td><?= htmlspecialchars($lesson['status']) ?></td></tr>
+</table>
+
+<br>
+<a href="?entity=appointment">← Вернуться к списку</a>
